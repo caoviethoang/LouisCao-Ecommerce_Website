@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} All Categories {% endblock%}
+
+{% block content %}
+
+<div class="container">
+    <h3>All Products</h3>
+    <hr>
+    {% for cat in allcategories %}
+    <h4 style="line-height: 40px; color: rgb(180, 62, 62);">{{ cat.title }}</h4>
+    
+        <div class="row mt-2" >
+            {% for p in cat.product_set.all %}
+            <div class="col-md-3 card">
+                <div class="m-4">
+                    {% if p.image %}
+                        <img src="{{ p.image.url }}" alt="{% url 'core:add-to-cart' p.id %}" class="img-fluid" style="height: 150px; object-fit: contain; 
+                        display: block; margin-left: auto; margin-right: auto;">
+                        <h5 style="color: rgb(0, 119, 255); text-align: center;"><a href="{% url 'core:productdetail' p.slug %}"> {{p.title }}</a></h5>
+                        <p class="mt-4" style="color: rgb(255, 51, 0); text-align: center;">Price: $<strike>Rs. {{ p.marked_price }}</strike> Rs. ${{ p.selling_price}}</p>
+                        <a href="{% url 'core:add-to-cart' p.id %}" class="btn btn-success" style="       
+                        display: inline-block;
+                        padding: 5px 25px;
+                        border-radius: 50px;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        margin-left: 30px;">
+                        <span>Add To Cart</span></a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <br />
+    {% endfor %}
+</div>
+{% endblock %}

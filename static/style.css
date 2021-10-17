@@ -1,0 +1,103 @@
+
+    .contact_footer {
+        padding: 0;
+        }
+    .contact_footer {
+        background: #3092c0;
+        padding: 50px 0 0;
+        color: #fff;
+        }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    user agent stylesheet
+    div {
+    display: block;
+    }
+    .footer_wrapper ul li {
+        padding-bottom: 9px;
+        margin-bottom: 9px;
+    }
+    #powered, .footer_wrapper ul li a {
+        color: #fff;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    user agent stylesheet
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+    body{
+        font-family: sans-serif;
+    }
+    #navbarSupportedContent ul:after{
+        text-align: center;
+        display:block;
+        clear:both;
+    }
+    #navbarSupportedContent > ul > li{
+        display: inline-block;
+        position:relative;
+    }
+    #navbarSupportedContent > ul > li > a {
+        text-decoration: none;
+        display:inline-block;
+        transition:all linear 0.15s;
+    }
+    #navbarSupportedContent a:hover {
+        background: #F1F1F1;
+        color: #333;
+        border-radius: 50px;
+    }
+
+    /*----css cho menu con----*/
+    #navbarSupportedContent li:hover .menu{
+        z-index:1;
+        opacity:1;
+
+    }
+    .menu{
+        padding:5px 0px;
+        /* display: none; */
+        position:absolute;
+        z-index:-1;
+        opacity:0;
+        transition:opacity linear 0.15s;
+    }
+    /* #navbarSupportedContent li{
+        position: relative;
+    }
+    .menu{
+        display: none;
+        position: absolute;
+    } */
+    
+    .menu li{
+        margin-left: 0 !important;
+        display:block;
+
+    }
+    .menu li a{
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        float: left;
+    }
+    .menu li a:hover {
+        background: #F1F1F1;
+        color: #333;
+    }

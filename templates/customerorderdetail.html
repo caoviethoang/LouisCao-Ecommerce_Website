@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} Customer Detail {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h3>Order Detail</h3><hr>
+            <p><span class="font-weight-bold">Order ID: </span class="font-weight-bold">#ORDER_{{ ord_obj.id }}</p>
+            <p><span class="font-weight-bold">Order status: </span class="font-weight-bold">{{ ord_obj.order_status }}</p>
+            <p><span class="font-weight-bold">Order On: </span class="font-weight-bold">{{ ord_obj.created_at | timesince }} ago</p>
+            <p><span class="font-weight-bold">Customer Information: </span class="font-weight-bold">By {{ ord_obj.ordered_by }}, {{ ord_obj.phone }}</p>
+            <p><span class="font-weight-bold">Shipping Address: </span class="font-weight-bold">{{ ord_obj.ship_address }}, ({{ ord_obj.email }})</p> 
+            <hr>
+            <h3>Ordered Items</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th></th>
+                        <th>Item</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <hr>
+                <tbody>
+                    {% for cp in ord_obj.cart.cartproduct_set.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><img src="{{ cp.product.image.url }}" style="height:50px; margin-right: 30px;"></td>
+                        <td><a target="_blank" href="{% url 'core:productdetail' cp.product.slug %}"> {{cp.product.title }}({{cp.product.id}})</a></td>
+                        <td>${{ cp.rate | intcomma}}</td>
+                        <td>{{ cp.quantity }}</td>
+                        <td>${{ cp.subtotal | intcomma}}</td>
+                    </tr>
+                    {% endfor %}
+                    <th colspan="4" class="text-right">Total</th>
+                    <th>${{ord_obj.total | intcomma }}</th>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My cart {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="md-8"></div>
+        <h4>Items in my cart</h4>
+        <hr>
+        <br /><br />
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Rate</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cp in cart.cartproduct_set.all %}
+                <tr>
+                    <td style="margin-top: 30px;">{{ forloop.counter }}</td>
+                    <td><img src="{{ cp.product.image.url }}" style="height:50px; margin-right: 30px;"></td>
+                    <td>{{ cp.product.title }}</td>
+                    <td>${{ cp.rate }}</td>
+                    <td>
+                        <a href="{% url 'core:managecart' cp.id %}?action=dcr" class="btn btn-default"> - </a> 
+                        {{cp.quantity }}
+                        <a href="{% url 'core:managecart' cp.id %}?action=inc" class=" btn btn-default"> + </a>
+                    </td>
+                    <td>${{ cp.subtotal }}</td>
+                    <td><a href="{% url 'core:managecart' cp.id %}?action=rmv">
+                        <img src="{% static 'trash.png' %}" alt="" class="img-fluid" style="height: 20px; object-fit: cover;">
+                    </td></a>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th colspan="4" class="text-right">Total</th>
+                    <th>${{cart.total}}</th>
+                    {% if cart.cartproduct_set.all %}
+                    <th><a href="{% url 'core:emptycart' %}">Empty Cart</a></th>
+                    {% endif %}
+                    
+                </tr>
+
+                {% if cart.cartproduct_set.all %}
+                <tr>
+                    <td colspan="5">
+                        <a class="btn btn-warning float-right ml-2" href="{% url 'core:checkout' %}">Proceed to checkout</a>
+                        <a class="btn btn-primary float-right" href="/">Continue Shopping</a>
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

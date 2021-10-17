@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+    
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <a class="navbar-brand" href="{% url 'core:home' %}">LouisCao</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'core:home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'core:allproducts' %}">Categories</a>
+                  <!-- {% for cat in allcategories %}
+                  <ul class="menu">
+                      <li>
+                          <a href="#">{{ cat.title }}</a>
+                      </li>
+                  </ul>
+                  {% endfor %} -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:mycart' %}">Cart</a>
+                  </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My account
+                  </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if request.user.customer %}
+                        <p class="text-center"> <b>{{ request.user.username }}</b> </p>
+                        <a class="dropdown-item" href="{% url 'core:customerprofile' %}">My profile</a>
+                        <a class="dropdown-item" href="{% url 'core:logout' %}">Logout</a>
+                        {%else%}
+                        <a class="dropdown-item" href="{% url 'core:login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'core:customerregistration' %}">Register</a>
+                    {% endif %}
+                </div>
+                </li>
+               
+              </ul>
+              <form class="form-inline my-2 my-lg-0" action="{% url 'core:search' %}" method="GET">
+                <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search product here...." required>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: #fff; border: 1px solid rgb(72, 72, 182);">Search</button>
+              </form>
+            </div>
+          </nav>
+     
+
+       
+
+          
+        
+    <hr>
+
+    <br/>
+    {% block content %}
+    {% endblock %}
+    <br/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <div class="contact_footer"> 
+    <div class="footer-content"></div>
+     <div class="footer_wrapper"> 
+         <div class="container"> 
+             <div class="row footer"> 
+                <div class="col-sm-12"> 
+                    <div class="footer-contact-block row"> 
+                        <div class="col-sm-6"> 
+                            <div class="fcb"> 
+                                 <h3>Hà Nội</h3> 
+                                 <ul> 
+                                     <li> <i class="fa fa-map-marker" aria-hidden="true"></i> 16 Đồng Me - Mễ Trì- Quận Nam Từ Liêm - Hà Nội </li> 
+                                     <li> <i class="fa fa-mobile" aria-hidden="true"></i> Hotline: 0346384750 </li> 
+                                     <li> <i class="fa fa-envelope-o" aria-hidden="true"></i> info@GnaoH.vn </li> 
+                                </ul> 
+                            </div> 
+                        </div> 
+                        <div class="col-sm-6"> 
+                            <div class="fcb"> 
+                                <h3>Hồ Chí Minh</h3> 
+                                <ul> 
+                                    <li> <i class="fa fa-map-marker" aria-hidden="true"></i> 220 Lý Thái Tổ, phường 1, Quận 3,Hồ Chí Minh </li> 
+                                    <li> <i class="fa fa-mobile" aria-hidden="true"></i> 0346384750 </li> 
+                                    <li> <i class="fa fa-envelope-o" aria-hidden="true"></i> info@GnaoH.vn </li>
+                                </ul> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="col-md-6 col-sm-6"> 
+                    <h3>Thông tin</h3> 
+                    <ul> 
+                        <li><a href="https://www.GnaoH.vn/ve-chung-toi.html">Về chúng tôi</a></li> 
+                        <li><a href="https://www.GnaoH.vn/huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li> 
+                        <li><a href="https://www.GnaoH.vn/tai-khoan-thanh-toan.html">HƯỚNG DẪN THANH TOÁN</a></li> 
+                        <li><a href="https://www.GnaoH.vn/huong-dan-tra-gop.html">Hướng dẫn trả góp</a></li> 
+                        <li><a href="https://www.GnaoH.vn/chinh-sach-van-chuyen.html">Chính sách vận chuyển</a></li> 
+                        <li><a href="https://www.GnaoH.vn/chinh-sach-bao-hanh.html">Chính sách bảo hành</a></li> 
+                        <li><a href="https://www.GnaoH.vn/chinh-sach-doi-tra-hang.html">Chính sách đổi trả hàng</a></li> 
+                        <li><a href="https://www.GnaoH.vn/cam-ket-bao-mat-thong-tin.html">Cam kết bảo mật thông tin </a></li> 
+                        <li><a href="https://www.GnaoH.vn/tuyen-cong-tac-vien-toan-quoc">Tuyển cộng tác viên toàn quốc</a></li> 
+                        </ul> 
+                    </div> 
+            <div class="clearfix visible-sm"></div> 
+                <div class="col-md-6 col-sm-6"> <div class="custom_block"> 
+                    <h3>Chứng nhận Website <a style="color: #f0cf00;">TMDT</a></h3>
+                    <p><a href="" target="_blank"><script>NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjg5OC41NzY4"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjg5OS41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwMC41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwMS41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwMi41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwMy41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwNC41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwNS41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwNi41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwNy41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwOC41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkwOS41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxMC41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxMS41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxMi41NzY5"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxMy41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxNC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxNS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxNi41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxNy41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxOC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkxOS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyMC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyMS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyMi41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyMy41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyNC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyNS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyNi41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyNy41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyOC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkyOS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzMC41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzMS41Nzc="), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzMi41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzMy41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzNC41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzNS41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzNi41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzNy41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzOC41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjkzOS41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0MC41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0MS41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0Mi41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0My41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0NC41Nzcx"), 400, 400);
+NitroImageLazyLoader.addImage(document.getElementById("MTYyOTkwMjk0NS41Nzcx"), 400, 400);
+</script></a> </p><p style="color: #fff;">Email: <a style="color: #fff;" href="mailto:info@GnaoH.vn">info@GnaoH.vn</a><br></p> <div class="newsletter_module"> <p>Đăng ký nhận thông tin khuyến mãi và sự kiện</p> <div id="respondf"></div> <div class="input-group"> <input type="text" id="emailf" name="email" class="form-control" placeholder="Nhập email của bạn"> <span class="button-subscribe 0 input-group-addon btn btn-primary"><i class="fa fa-envelope"></i></span> </div> </div> </div> </div> </div> </div> </div> <div class="bottom_line"> <div class="container text-center"> <div class="scroll_to_top active" style="right: -100px;"><a class="scroll_top arrow_icon tablet_hide"><i class="fa fa-angle-up"></i></a></div> <div id="powered">Copyright © GnaoH.vn 2012. All Rights Reserved - <a href="https://www.webico.vn" style="color: #fff;"> Thiết kế web</a> bởi WEBICO</div> </div> </div> <div id="fb-root"></div>  </div>
+     --> -->
+</body>
+</html>
