@@ -35,4 +35,8 @@ urlpatterns = [
     #payment
     path('esewa-request/', EsewaRequestView.as_view(), name = 'esewarequest'),
     path('esewa-verify/', EsewaVerifyView.as_view(), name = 'esewaverify'),
+
+
+    #API
+    path('productapi/', ProductAPIView.as_view()),
 ]

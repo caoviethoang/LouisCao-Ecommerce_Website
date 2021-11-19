@@ -4,7 +4,7 @@ import requests
 from .forms import *
 from .models import *
 from django.urls import reverse_lazy, reverse
-from django.http import request, JsonResponse
+from django.http import request,HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, DetailView, View, CreateView, FormView, ListView
 from django.db.models import Q
@@ -12,7 +12,14 @@ from django.core.paginator import Paginator
 from .utils import password_reset_token
 from django.core.mail import send_mail
 from django.conf import settings
-
+from rest_framework.parsers import JSONParser
+from .serializers import *
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework import generics, mixins
 # Create your views here.
 
 
@@ -489,3 +496,22 @@ class AboutView(CoreMixin,TemplateView):
 class ContactView(CoreMixin,TemplateView):
     template_name = "contact.html"
     
+
+
+
+
+#API
+
+class ProductAPIView(APIView):
+    def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerialiszer(products, many = True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ProductSerialiszer(data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
